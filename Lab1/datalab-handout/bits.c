@@ -2,7 +2,10 @@
  * CS:APP Data Lab 
  * 
  * <Please put your name and userid here>
- * 
+ 
+ * @author Jonathan Wang wz892477341@outlook.com	
+ * 	created on 3/18/2018.
+ 
  * bits.c - Source file with your solutions to the Lab.
  *          This is the file you will hand in to your instructor.
  *
@@ -139,7 +142,9 @@ NOTES:
  *   Rating: 1
  */
 int bitAnd(int x, int y) {
-  return 2;
+/* Just in logic, xAndy equals to not((not x) or (not y)). 
+        return ~(~x | ~y);
+
 }
 /* 
  * getByte - Extract byte n from word x

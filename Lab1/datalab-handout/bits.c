@@ -142,7 +142,7 @@ NOTES:
  *   Rating: 1
  */
 int bitAnd(int x, int y) {
-/* Just in logic, xAndy equals to not((not x) or (not y)). */
+	//Just in logic, xAndy equals to not((not x) or (not y)).
 	return ~(~x | ~y);
 
 }
@@ -155,8 +155,8 @@ int bitAnd(int x, int y) {
  *   Rating: 2
  */
 int getByte(int x, int n) {
-/* You want to arithmetically right-shift to get a number.
- * The number includes 16 bit.*/
+	//You want to arithmetically right-shift to get a number.
+ 	//The number includes 16 bit.
 	return (x >> (n << 3)) & 0xFF;
 }
 /* 
@@ -185,9 +185,10 @@ int logicalShift(int x, int n) {
 int bitCount(int x) {
 /* Sorry, I don't know how to solve this crazy puzzle! */
 
-// This method comes from teacher.
+	// This method comes from teacher.
 	int m1 = 0x0F; //m1 represents mask for 1 bytes.
-	int m4 = 0x1 | (0x1 << 8) | (0x1 << 16) | (0x1 << 24); //m4 represents mask for 4 bytes.
+	//m4 represents mask for 4 bytes.
+	int m4 = 0x1 | (0x1 << 8) | (0x1 << 16) | (0x1 << 24); 
 	int s4 = (x & m4) + ((x >> 1) & m4) + ((x >> 3) & m4) + ((x >> 4) & m4) + ((x >> 5) & m4) + ((x >> 6) & m4) + ((x >> 7) & m4);
 	int s1 = (s4 & m1) + ((s4 >> 8) & m1) + ((s4 >> 16) & m1) + ((s4 >> 24) & m1);
 	return s1;
@@ -201,11 +202,10 @@ int bitCount(int x) {
  *   Rating: 4 
  */
 int bang(int x) {
-/* '!' is a operator in logical to reverse nonzero and zero into 0 and 1. 
- * And the '~' is a bitwise operator in common way.
- */
+	//'!' is a operator in logical to reverse nonzero and zero into 0 and 1. 
+	//And the '~' is a bitwise operator in common way.
 	int mask_x = ~x + 1;
-	/* (mask_x | x) >> 31 will be -1(non-zero number) or 0(zero number). */
+	//(mask_x | x) >> 31 will be -1(non-zero number) or 0(zero number).
 	return ((mask_x | x) >> 31) + 1;
 	
   
@@ -217,7 +217,8 @@ int bang(int x) {
  *   Rating: 1
  */
 int tmin(void) {
-	return 1 << 31; // left shift the '1' bit to get 0x80000000.
+  // left shift the '1' bit to get 0x80000000.
+	return 1 << 31;
   
 }
 /* 
@@ -242,9 +243,14 @@ int fitsBits(int x, int n) {
  *   Rating: 2
  */
 int divpwr2(int x, int n) {
-	int mask = (1 << n) + ~0; // get 2^n-1.
-	int equalOrNot = mask & (n >> 31); // get the mask and the sign bit equals or not. If equals get 1 otherwise get 0.
-	return (x + equalOrNot) >> n; // logical shift n represent x/(2^n). If x is negative, add 1 to x to >>n correctly.
+	// get 2^n-1.
+	int mask = (1 << n) + ~0; 
+	// get the mask and the sign bit equals or not.
+	// If equals get 1 otherwise get 0.
+	int equalOrNot = mask & (n >> 31);
+	// Logical shift n represent x/(2^n). 
+	// If x is negative, add 1 into x for >>n correctly.
+	return (x + equalOrNot) >> n; 
 }
 /* 
  * negate - return -x 
@@ -265,11 +271,12 @@ int negate(int x) {
  *   Rating: 3
  */
 int isPositive(int x) {
-	return !((x & (1 << 31)) | !x); 
 	/* To check the sign bit in left part.
 	 * Check 0 in right part. 
 	 * Then use '!' to reverse. 
 	 */
+	return !((x & (1 << 31)) | !x); 
+
 }
 /* 
  * isLessOrEqual - if x <= y  then return 1, else return 0 
@@ -296,7 +303,7 @@ int isLessOrEqual(int x, int y) {
  *   Rating: 4
  */
 int ilog2(int x) {
-  return 2;
+	//Sorry, I don't know how to solve it. Still thinking!
 }
 /* 
  * float_neg - Return bit-level equivalent of expression -f for

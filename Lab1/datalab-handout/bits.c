@@ -192,8 +192,6 @@ int bitCount(int x) {
 	int s1 = (s4 & m1) + ((s4 >> 8) & m1) + ((s4 >> 16) & m1) + ((s4 >> 24) & m1);
 	return s1;
 	
-	
-  
 }
 /* 
  * bang - Compute !x without using !
@@ -219,7 +217,8 @@ int bang(int x) {
  *   Rating: 1
  */
 int tmin(void) {
-  return 2;
+	return 1 << 31; // left shift the '1' bit to get 0x80000000.
+  
 }
 /* 
  * fitsBits - return 1 if x can be represented as an 
@@ -231,7 +230,8 @@ int tmin(void) {
  *   Rating: 2
  */
 int fitsBits(int x, int n) {
-  return 2;
+  int sig = x >> 31;
+  return !(((~x & sig) + (x & ~sig)) >> (n + ~0));
 }
 /* 
  * divpwr2 - Compute x/(2^n), for 0 <= n <= 30
@@ -242,7 +242,9 @@ int fitsBits(int x, int n) {
  *   Rating: 2
  */
 int divpwr2(int x, int n) {
-    return 2;
+	int mask = (1 << n) + ~0; // get 2^n-1.
+	int equalOrNot = mask & (n >> 31); // get the mask and the sign bit equals or not. If equals get 1 otherwise get 0.
+	return (x + equalOrNot) >> n; // logical shift n represent x/(2^n). If x is negative, add 1 to x to >>n correctly.
 }
 /* 
  * negate - return -x 
@@ -252,7 +254,8 @@ int divpwr2(int x, int n) {
  *   Rating: 2
  */
 int negate(int x) {
-  return 2;
+  int mask = 0x1;
+  return x & (mask << x);
 }
 /* 
  * isPositive - return 1 if x > 0, return 0 otherwise 
@@ -262,7 +265,11 @@ int negate(int x) {
  *   Rating: 3
  */
 int isPositive(int x) {
-  return 2;
+	return !((x & (1 << 31)) | !x); 
+	/* To check the sign bit in left part.
+	 * Check 0 in right part. 
+	 * Then use '!' to reverse. 
+	 */
 }
 /* 
  * isLessOrEqual - if x <= y  then return 1, else return 0 
@@ -272,7 +279,14 @@ int isPositive(int x) {
  *   Rating: 3
  */
 int isLessOrEqual(int x, int y) {
-  return 2;
+  int sign_x = (x >> 31);
+  int sign_y = (y >> 31);
+  //Subtract x from y.
+  int res_sub = y + (~x + 1); 
+  // If y < x(res_sub < 0), return 0.
+  int sig_res_sub = !(sub >> 31); 
+  return ((sign_x^sign_y) & sign_x)|((sign_x^sign_y ^1) & res_sub);
+  
 }
 /*
  * ilog2 - return floor(log base 2 of x), where x > 0

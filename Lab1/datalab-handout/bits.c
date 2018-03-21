@@ -143,7 +143,7 @@ NOTES:
  */
 int bitAnd(int x, int y) {
 /* Just in logic, xAndy equals to not((not x) or (not y)). */
-        return ~(~x | ~y);
+	return ~(~x | ~y);
 
 }
 /* 
@@ -168,7 +168,10 @@ int getByte(int x, int n) {
  *   Rating: 3 
  */
 int logicalShift(int x, int n) {
-/* If x is negative, it follows the signal bit in the front of the x. So we should erase out these extra signs bits. We assume size of n is 32 bits. */
+/* If x is negative, it follows the signal bit in the front of the x. 
+ * So we should erase out these extra signs bits. 
+ * We assume size of n is 32 bits. 
+ */
 	return (x >> n) & ~((((1 << 31) >> n) << 1));
 
 }
@@ -190,7 +193,14 @@ int bitCount(int x) {
  *   Rating: 4 
  */
 int bang(int x) {
-  return 2;
+/* '!' is a operator in logical to reverse nonzero and zero into 0 and 1. 
+ * And the '~' is a bitwise operator in common way.
+ */
+	int mask_x = ~x + 1;
+	/* (mask_x | x) >> 31 will be -1(non-zero number) or 0(zero number). */
+	return ((mask_x | x) >> 31) + 1;
+	
+  
 }
 /* 
  * tmin - return minimum two's complement integer 

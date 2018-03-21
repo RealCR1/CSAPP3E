@@ -183,6 +183,16 @@ int logicalShift(int x, int n) {
  *   Rating: 4
  */
 int bitCount(int x) {
+/* Sorry, I don't know how to solve this crazy puzzle! */
+
+// This method comes from teacher.
+	int m1 = 0x0F; //m1 represents mask for 1 bytes.
+	int m4 = 0x1 | (0x1 << 8) | (0x1 << 16) | (0x1 << 24); //m4 represents mask for 4 bytes.
+	int s4 = (x & m4) + ((x >> 1) & m4) + ((x >> 3) & m4) + ((x >> 4) & m4) + ((x >> 5) & m4) + ((x >> 6) & m4) + ((x >> 7) & m4);
+	int s1 = (s4 & m1) + ((s4 >> 8) & m1) + ((s4 >> 16) & m1) + ((s4 >> 24) & m1);
+	return s1;
+	
+	
   
 }
 /* 

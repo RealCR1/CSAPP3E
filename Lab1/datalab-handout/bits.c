@@ -142,7 +142,7 @@ NOTES:
  *   Rating: 1
  */
 int bitAnd(int x, int y) {
-/* Just in logic, xAndy equals to not((not x) or (not y)). 
+/* Just in logic, xAndy equals to not((not x) or (not y)). */
         return ~(~x | ~y);
 
 }
@@ -155,15 +155,9 @@ int bitAnd(int x, int y) {
  *   Rating: 2
  */
 int getByte(int x, int n) {
-
-
-
-
-
-
-
-  return 2;
-
+/* You want to arithmetically right-shift to get a number.
+ * The number includes 16 bit.*/
+	return (x >> (n << 3)) & 0xFF;
 }
 /* 
  * logicalShift - shift x to the right by n, using a logical shift
@@ -174,7 +168,9 @@ int getByte(int x, int n) {
  *   Rating: 3 
  */
 int logicalShift(int x, int n) {
-  return 2;
+/* If x is negative, it follows the signal bit in the front of the x. So we should erase out these extra signs bits. We assume size of n is 32 bits. */
+	return (x >> n) & ~((((1 << 31) >> n) << 1));
+
 }
 /*
  * bitCount - returns count of number of 1's in word
@@ -184,7 +180,7 @@ int logicalShift(int x, int n) {
  *   Rating: 4
  */
 int bitCount(int x) {
-  return 2;
+  
 }
 /* 
  * bang - Compute !x without using !
